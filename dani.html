@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#203f65">
+	<title>Untuk Kamu, Zahira Sayangku</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: dark;
+			--night: #17251e;
+			--paper: #f7f0e4;
+			--rose: #e7a59b;
+			--rose-light: #f3c7b7;
+			--ink: #29342a;
+			--muted: #e7dce2;
+			--serif: 'Playfair Display', Georgia, serif;
+			--sans: 'DM Sans', 'Trebuchet MS', sans-serif;
+		}
+
+		* { box-sizing: border-box; }
+		html { min-width: 320px; scroll-behavior: smooth; }
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			color: #fffaf1;
+			background:
+				radial-gradient(ellipse at 14% 20%, rgba(94, 151, 218, .34), transparent 35%),
+				radial-gradient(ellipse at 84% 24%, rgba(164, 190, 226, .15), transparent 31%),
+				radial-gradient(ellipse at 76% 92%, rgba(87, 150, 117, .17), transparent 38%),
+				linear-gradient(135deg, #15233a 0%, #203f65 48%, #172b46 100%);
+			font-family: var(--sans);
+		}
+
+		button { font: inherit; }
+
+		.page {
+			position: relative;
+			min-height: 100svh;
+			display: grid;
+			place-items: center;
+			overflow: hidden;
+			padding: 52px 24px;
+			isolation: isolate;
+		}
+
+		.page::before, .page::after {
+			position: absolute;
+			z-index: -1;
+			content: '';
+			pointer-events: none;
+		}
+
+		.page::before {
+			inset: 20px;
+			border: 1px solid rgba(246, 228, 201, .11);
+		}
+
+		.page::after {
+			width: 380px;
+			height: 380px;
+			top: -260px;
+			left: 12%;
+			border: 1px solid rgba(231, 165, 155, .17);
+			border-radius: 50%;
+			box-shadow: 0 0 0 32px rgba(231, 165, 155, .025), 0 0 0 64px rgba(231, 165, 155, .02);
+		}
+
+		.grain {
+			position: fixed;
+			z-index: -1;
+			inset: 0;
+			opacity: .12;
+			pointer-events: none;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
+		}
+
+		.gift {
+			width: min(100%, 960px);
+			display: grid;
+			grid-template-columns: 1fr .82fr;
+			align-items: center;
+			gap: clamp(38px, 8vw, 105px);
+			animation: arrive .9s both;
+		}
+
+		.copy { padding: 20px 0; }
+
+		.eyebrow {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin: 0 0 25px;
+			color: var(--rose-light);
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: .16em;
+			text-transform: uppercase;
+		}
+
+		.eyebrow::before { width: 28px; height: 1px; content: ''; background: var(--rose); }
+		h1, h2, p { margin-top: 0; }
+
+		h1 {
+			max-width: 540px;
+			margin-bottom: 20px;
+			font: 500 clamp(42px, 6.2vw, 74px)/1.06 var(--serif);
+			letter-spacing: 0;
+		}
+
+		h1 em { color: var(--rose-light); font-weight: 500; }
+
+		.intro {
+			max-width: 400px;
+			margin-bottom: 33px;
+			color: var(--muted);
+			font-size: 15px;
+			line-height: 1.8;
+		}
+
+		.open-letter {
+			min-height: 52px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+			padding: 0 23px;
+			border: 1px solid var(--rose);
+			border-radius: 2px;
+			color: var(--night);
+			background: var(--rose-light);
+			font-size: 13px;
+			font-weight: 700;
+			cursor: pointer;
+			transition: background .2s, transform .2s;
+		}
+
+		.open-letter:hover { transform: translateY(-2px); background: #f8d7c8; }
+		.open-letter:focus-visible, .close-letter:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+		.open-letter span { font-size: 18px; }
+		.signature { margin: 31px 0 0; color: #9faa9d; font: italic 14px var(--serif); }
+
+		.photo-wrap {
+			position: relative;
+			width: 100%;
+			max-width: 350px;
+			justify-self: end;
+			padding: 11px;
+			border: 1px solid rgba(247, 240, 228, .34);
+			transform: rotate(2deg);
+			background: #e9dfd0;
+			box-shadow: 0 25px 80px rgba(0, 0, 0, .28);
+			animation: float-in 1s .15s both;
+		}
+
+		.photo {
+			display: block;
+			width: 100%;
+			aspect-ratio: 3 / 5;
+			object-fit: cover;
+			background: #41554a;
+			filter: saturate(.9) contrast(1.02);
+		}
+
+		.photo-caption { margin: 0; padding: 14px 8px 5px; color: #354136; text-align: center; font: italic 16px var(--serif); }
+
+		.photo-heart {
+			position: absolute;
+			top: -22px;
+			right: -21px;
+			width: 48px;
+			height: 48px;
+			display: grid;
+			place-items: center;
+			border: 1px solid rgba(255, 244, 224, .28);
+			border-radius: 50%;
+			color: var(--night);
+			background: var(--rose-light);
+			font-size: 20px;
+			transform: rotate(-2deg);
+		}
+
+		.letter-backdrop {
+			position: fixed;
+			z-index: 5;
+			inset: 0;
+			display: grid;
+			place-items: center;
+			overflow-y: auto;
+			padding: 24px;
+			background: rgba(10, 17, 13, .78);
+			backdrop-filter: blur(8px);
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity .35s, visibility .35s;
+		}
+
+		.letter-backdrop.is-open { opacity: 1; visibility: visible; }
+
+		.letter {
+			position: relative;
+			width: min(100%, 600px);
+			margin: auto;
+			padding: clamp(30px, 7vw, 62px);
+			border: 1px solid #e6d8c2;
+			color: var(--ink);
+			background:
+				repeating-linear-gradient(0deg, transparent 0 31px, rgba(110, 106, 82, .055) 31px 32px),
+				var(--paper);
+			box-shadow: 0 30px 100px rgba(0, 0, 0, .42);
+			transform: translateY(16px) rotate(-.4deg);
+			transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+		}
+
+		.is-open .letter { transform: translateY(0) rotate(0); }
+
+		.letter::before {
+			position: absolute;
+			inset: 9px;
+			border: 1px solid rgba(105, 91, 68, .17);
+			content: '';
+			pointer-events: none;
+		}
+
+		.close-letter {
+			position: absolute;
+			top: 19px;
+			right: 19px;
+			z-index: 1;
+			width: 38px;
+			height: 38px;
+			display: grid;
+			place-items: center;
+			border: 1px solid rgba(41, 52, 42, .25);
+			border-radius: 50%;
+			color: var(--ink);
+			background: transparent;
+			font-size: 21px;
+			cursor: pointer;
+		}
+
+		.letter .eyebrow { margin-bottom: 19px; color: #9c645e; }
+		.letter h2 { margin: 0 0 23px; font: 600 clamp(32px, 6vw, 46px)/1.1 var(--serif); }
+		.letter-copy { color: #4b5046; font: 15px/1.9 var(--sans); }
+		.letter-copy p { margin-bottom: 15px; }
+		.letter-copy .closing { margin-top: 25px; color: #895b55; font: italic 22px/1.4 var(--serif); }
+		.little-promise { margin: 22px 0 0; color: #818275; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+
+		.heart-burst {
+			position: fixed;
+			z-index: 9;
+			top: 50%;
+			left: 50%;
+			color: var(--rose-light);
+			font-size: 22px;
+			pointer-events: none;
+			animation: burst 1.5s ease-out forwards;
+		}
+
+		@keyframes arrive { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+		@keyframes float-in { from { opacity: 0; transform: translateY(18px) rotate(2deg); } to { opacity: 1; transform: translateY(0) rotate(2deg); } }
+		@keyframes burst { to { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--turn)) scale(.5); } }
+
+		@media (max-width: 700px) {
+			.page { padding: 50px 34px; }
+			.page::before { inset: 12px; }
+			.gift { max-width: 470px; grid-template-columns: 1fr; gap: 38px; }
+			.copy { padding: 12px 0 0; }
+			.eyebrow { margin-bottom: 19px; }
+			h1 { max-width: 440px; font-size: clamp(43px, 12vw, 64px); }
+			.intro { max-width: 370px; margin-bottom: 26px; font-size: 14px; }
+			.signature { margin-top: 21px; }
+			.photo-wrap { width: min(70%, 250px); justify-self: center; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<div class="grain" aria-hidden="true"></div>
+	<main class="page">
+		<section class="gift" aria-labelledby="title">
+			<div class="copy">
+				<p class="eyebrow">Sebuah hadiah kecil untukmu</p>
+				<h1 id="title">Untuk kamu, yang membuat <em>semuanya</em> terasa lebih indah.</h1>
+				<p class="intro">Ada banyak hal yang ingin kusampaikan, tapi beberapa rasa memang lebih manis saat ditulis pelan-pelan. Jadi, surat kecil ini untukmu.</p>
+				<button class="open-letter" id="openLetter" type="button" aria-haspopup="dialog" aria-controls="letterBackdrop">
+					Buka surat kecil ini <span aria-hidden="true">&#8594;</span>
+				</button>
+				<p class="signature">Dengan seluruh sayangku, selalu.</p>
+			</div>
+
+			<figure class="photo-wrap">
+				<img class="photo" src="foto-zahira.jpg.jpeg" alt="Zahira mengenakan kostum biru dan putih di taman">
+				<span class="photo-heart" aria-hidden="true">&#9829;</span>
+				<figcaption class="photo-caption">Hal-hal sederhana, bersamamu.</figcaption>
+			</figure>
+		</section>
+	</main>
+
+	<div class="letter-backdrop" id="letterBackdrop" aria-hidden="true">
+		<section class="letter" id="letter" role="dialog" aria-modal="true" aria-labelledby="letterTitle" aria-describedby="letterMessage">
+			<button class="close-letter" id="closeLetter" type="button" aria-label="Tutup surat">&times;</button>
+			<p class="eyebrow">Dari hatiku, untukmu Sayangku</p>
+			<h2 id="letterTitle">Hai, Gheitsa Zahira Shofa.</h2>
+			<div class="letter-copy" id="letterMessage">
+				<p>Aku cuma mau bilang terima kasih sudah hadir di hidupku. Sejak ada kamu, hal-hal kecil terasa punya arti lebih. Hari biasa bisa jadi menyenangkan, dan diam pun terasa nyaman kalau dijalani bersamamu.</p>
+				<p>Aku suka caramu menjadi dirimu sendiri. Aku suka obrolan kita, tawa kita, dan semua momen sederhana yang diam-diam jadi kenangan favoritku. Kamu tidak harus menjadi sempurna untuk dicintai. Buatku, kamu sudah lebih dari cukup.</p>
+				<p>Kalau suatu hari dunia terasa berat, ingat ya ada aku yang akan selalu memilihmu, mendengarkanmu, dan belajar mencintaimu dengan lebih baik. Hari ini, besok, dan hari-hari setelahnya.</p>
+				<p class="closing">Aku sayang kamu. Lebih dari yang bisa ditulis di surat ini.</p>
+			</div>
+			<p class="little-promise">Hari ini dan seterusnya &#9829;</p>
+		</section>
+	</div>
+
+	<script>
+		const backdrop = document.getElementById('letterBackdrop');
+		const openButton = document.getElementById('openLetter');
+		const closeButton = document.getElementById('closeLetter');
+
+		function openLetter() {
+			backdrop.classList.add('is-open');
+			backdrop.setAttribute('aria-hidden', 'false');
+			closeButton.focus();
+		}
+
+		function closeLetter() {
+			backdrop.classList.remove('is-open');
+			backdrop.setAttribute('aria-hidden', 'true');
+			openButton.focus();
+		}
+
+		openButton.addEventListener('click', openLetter);
+		closeButton.addEventListener('click', closeLetter);
+		backdrop.addEventListener('click', (event) => {
+			if (event.target === backdrop) closeLetter();
+		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && backdrop.classList.contains('is-open')) closeLetter();
+		});
+
+		document.querySelector('.photo-wrap').addEventListener('click', () => {
+			for (let index = 0; index < 12; index++) {
+				const heart = document.createElement('span');
+				const angle = (Math.PI * 2 * index) / 12;
+				heart.className = 'heart-burst';
+				heart.setAttribute('aria-hidden', 'true');
+				heart.textContent = index % 3 === 0 ? '\u2665' : '\u2661';
+				heart.style.setProperty('--dx', `${Math.cos(angle) * 110}px`);
+				heart.style.setProperty('--dy', `${Math.sin(angle) * 110}px`);
+				heart.style.setProperty('--turn', `${index * 30}deg`);
+				document.body.appendChild(heart);
+				heart.addEventListener('animationend', () => heart.remove(), { once: true });
+			}
+		});
+	</script>
+</body>
+</html>
